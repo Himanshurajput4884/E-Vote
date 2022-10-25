@@ -27,8 +27,8 @@ This online voting system has following features:
 ### TECHNOLOGY USED:
 
 For developing this project we have incorporated the use of following technologies :
-	*Backend : Node JS, Express
-	*Frontend : HTML, Javascript, EJS
+1. Backend : Node JS, Express
+2. Frontend : HTML, Javascript, EJS
 
 ---------------------------------------------
 ### DATABASE:
