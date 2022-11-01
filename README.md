@@ -1,6 +1,5 @@
 # E-Vote
 ### ONLINE VOTING SYSTEM 
----------------------------------------------
 ### FEATURES:
 
 This online voting system has following features:
