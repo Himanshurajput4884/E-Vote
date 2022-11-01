@@ -1,5 +1,5 @@
-### E-Vote
-# ONLINE VOTING SYSTEM 
+# E-Vote
+### ONLINE VOTING SYSTEM 
 ---------------------------------------------
 ### FEATURES:
 
