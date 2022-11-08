@@ -295,12 +295,12 @@ router.post('/verifyvoterqr', upload.single("avatar"), function(req,res,next){
                         gender : data[0].gender                    
                     };
                     console.log("Password Entered : ", req.body.password);
-                    console.log("Password -  " + data[0].password);
+                    console.log("Password -  " + data[0].PASSWORD);
                     console.log(data[0]);
                     // if(req.body.password != data[0].password){
                     //     res.redirect('/errorVote');
                     // }
-                    if(data[0].password == req.body.password){
+                    if(data[0].PASSWORD == req.body.password){
                         console.log(voterDetails);
                     // if(data[0].isValid){
                         // if(data[0].hasVoted == 0){
