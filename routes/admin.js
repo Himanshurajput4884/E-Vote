@@ -293,6 +293,7 @@ router.get("/candidateelection", function(req,res,next){
 		if(err) throw err;
 		var sql2 = "SELECT * from candidateElection";
 		db.query(sql2,function(err,candidateElection,fields){
+			console.log("candidateElection: ", candidateElection);
 			var sql3 = "SELECT * from candidate";
 			db.query(sql3, function(err,allCandidates, fields){
 				var tempList = [];
@@ -487,7 +488,7 @@ router.post("/debarvoters", function(req,res,next){
 var resultElection =[];
 router.get("/result", function(req, res, next) {
 	if(req.session.isAdmin){
-		var sql = 'SELECT * FROM ELECTION';
+		var sql = 'SELECT * FROM election';
 		db.query(sql, function(err,election,fields){
 			var sql2 = "SELECT * from candidateElection";
 			db.query(sql2,function(err,candidates,fields){
@@ -579,7 +580,7 @@ router.post("/result", function(req,res,next){
 
 router.get("/removevoter",function(req, res, next) {
 	if(req.session.isAdmin){
-		var sql = 'SELECT * FROM Voter'
+		var sql = 'SELECT * FROM voter'
 		db.query(sql,function(err,data,fields){
 			res.render('removevoter',{voters : data});
 		})
@@ -598,10 +599,10 @@ router.get('/removevoter/:id', function (req, res, next) {
 		var sq = "SET FOREIGN_KEY_CHECKS = 0";
 		db.query(sq,function(err,data,fields){
 			if(err) throw err;
-			var sql1 = "DELETE FROM VOTER WHERE aadhar = ?";
+			var sql1 = "DELETE FROM voter WHERE aadhar = ?";
 			db.query(sql1,aadharId,function(err,data,fields){
 				if(err) throw err;
-				var sql2 = "DELETE FROM voterelection WHERE voterId = ?";
+				var sql2 = "DELETE FROM voterElection WHERE voterId = ?";
 				db.query(sql2,aadharId,function(err,data,fields){
 					var sql2 = "SET FOREIGN_KEY_CHECKS=1";
 					db.query(sql2,function(err,data,fields){
@@ -630,7 +631,7 @@ router.get('/removecandidate/:id', function (req, res, next) {
 			var sql1 = "DELETE FROM candidate WHERE candidateId = ?";
 			db.query(sql1,candidId,function(err,data,fields){
 				if(err) throw err;
-				var sql2 = "DELETE FROM candidateelection WHERE candidateId = ?";
+				var sql2 = "DELETE FROM candidateElection WHERE candidateId = ?";
 				db.query(sql2,candidId,function(err,data,fields){
 					var sql2 = "SET FOREIGN_KEY_CHECKS=1";
 					db.query(sql2,function(err,data,fields){
@@ -657,9 +658,9 @@ router.get('/electiondelete/:id', function (req, res, next) {
 		db.query(sq,function(err,data,fields){
 			var sql1 = "DELETE FROM election WHERE electionId = ?";
 			db.query(sql1,elecId,function(err,data,fields){
-				var sql2 = "DELETE FROM candidateelection WHERE electionId = ?";
+				var sql2 = "DELETE FROM candidateElection WHERE electionId = ?";
 				db.query(sql2,elecId,function(err,data,fields){
-					var sql3 = "DELETE FROM voterelection WHERE electionId = ?";
+					var sql3 = "DELETE FROM voterElection WHERE electionId = ?";
 					db.query(sql3,elecId,function(err,data,fields){
 						var sql4 = "SET FOREIGN_KEY_CHECKS=1";
 						db.query(sql4,function(err,data,fields){
