@@ -276,7 +276,7 @@ router.post('/verifyvoterqr', upload.single("avatar"), function(req,res,next){
                 
                 var sql = 'SELECT * FROM voter WHERE aadhar = ?'
                 db.query(sql,aadhar_voter,function(err,data,fields){
-                    // console.log(data);
+                    console.log(data[0]);
                     if(data.length == 0){
                         msg="No valid entry found!";
                         console.log("No valid entry!!");
