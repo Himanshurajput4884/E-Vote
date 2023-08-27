@@ -16,26 +16,36 @@ var availbleCandidatesList = [];
 
 router.get('/' , function(req,res,next){
     console.log("Here");
-    if(req.session.isAdmin == true){
-		console.log("Hiya");
-        var sq = "SELECT * from voter";
-        db.query(sq,function(err,data,fields){
-            // console.log(data);
-			console.log("Voter done");
-			var sq1 = "SELECT * from candidate";
-			db.query(sq1,function(err,data1,fields){
-				console.log("Candi done");
-				var sq2 = "SELECT * from election";
-				db.query(sq2,function(err,data2,fields){
-					console.log("Cons done");
-					res.render('admin',{voters : data, candidates : data1, election : data2});
-				})
+
+    try{
+		if(req.session.isAdmin == true){
+			console.log("Hiya");
+			var sq = "SELECT * from voter";
+			db.query(sq,function(err,data,fields){
+				// console.log(data);
+				if(err) throw err;
+				console.log("Voter done");
+				var sq1 = "SELECT * from candidate";
+				db.query(sq1,function(eror,data1,fields){
+					if(eror) throw eror;
+					console.log("Candi done");
+					var sq2 = "SELECT * from election";
+					db.query(sq2,function(error,data2,fields){
+						if(error) throw error;
+						console.log("Cons done");
+						console.log("Voters: ", data, " Candidates: ", data1, " election: ", data2);
+						res.render('admin',{voters : data, candidates : data1, election : data2});
+					})
+				});
 			});
-        });
-    }
-    else{
-        res.redirect('/admin/login');
-    }
+		}
+		else{
+			res.redirect('/admin/login');
+		}
+	}
+	catch(err){
+		console.log("Error in getAll: ", err);
+	}
 });
 
 router.get('/login', function(req,res,next){
@@ -129,13 +139,13 @@ router.get("/addelection", function(req,res){
 		db.query(sql,function(err,result,fields){
 			if(err) throw err;
 			var msg = "";
+			console.log("List of elections: ", result);
 			res.render("addelection",{electionList : result, alertMsg:msg});
 		});
 	}
 	else{
 		res.redirect("/admin");
 	}
-	
 });
 
 router.post('/addelection', function(req, res){
@@ -360,7 +370,6 @@ router.get("/candidateelection", function(req,res,next){
 });
 
 router.post("/candidateelection", function(req,res,next){
-	console.log(req.body);
 	var electionIndex = Number(req.body.submit);
 	var inputData  = [];
 	var idx;
@@ -423,13 +432,13 @@ router.post("/debarcandidate", function(req,res,next){
 });
 
 router.post("/addvoters", function(req,res,next){
-	console.log(req.body);
+	console.log("Req Body: ", req.body);
 	var electionIndex = Number(req.body.submit);
 	var inputData  = [];
 	var idx;
-	console.log(electionList);
-	console.log(availbleVotersList);
-	console.log(electionIndex);
+	console.log("electionList: ", electionList);
+	console.log("availbleVotersList: ", availbleVotersList);
+	console.log("electionIndex: ", electionIndex);
 	var obj =[];
 	if(req.body.box == undefined){
 		res.redirect("/admin/addvoters");
@@ -448,6 +457,7 @@ router.post("/addvoters", function(req,res,next){
 		obj.push(0);
 		inputData.push(obj);
 	}
+	console.log(inputData);
 	var sql = "INSERT INTO voterElection (electionId, voterId, voteCount) values ?";
 	db.query(sql,[inputData],function(err,result,fields){
 		if(err) throw err;

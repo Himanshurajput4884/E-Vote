@@ -60,3 +60,10 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
+
+
+// DATABASE = sql6634455
+// DATABASE_HOST = sql6.freesqldatabase.com
+// DATABASE_USER = sql6634455
+// DATABASE_PASSWORD = aXNJg3wxmJ

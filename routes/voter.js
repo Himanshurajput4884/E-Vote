@@ -255,6 +255,7 @@ router.post('/verifyvoterqr', upload.single("avatar"), function(req,res,next){
                     return res.redirect('/errorMessage');
                 }
                 const obj = JSON.parse(value.result);
+                console.log("Object: ", obj);
                 // console.log(value.result);
                 //Getting Details
                 if(obj.name == undefined || obj.gender == undefined || obj.aadhar == undefined) {

@@ -1,7 +1,6 @@
 <% include adminheader.ejs %>
 
 <script>
-
     function check(){
         if(document.forms["addelec"]["elec_code"].value==''|| document.forms["addelec"]["elec_name"].value == ''){
             window.alert("Please fill the empty fields!");
@@ -65,26 +64,24 @@
                             </tr>
                         </thead>
                         <tbody>
-                                <% for(var i=0; i<electionList.length; i++){ %>
-                                    
-                                    <tr  onclick="if(confirm('Are you sure you want to delete this election?')){window.location='/admin/electiondelete/<%= electionList[i].electionId %>';}" style="cursor: pointer;">
-                                        <!-- <th scope="row">
-                                        </th> -->
-                                        <td>
-                                            <%= (i+1) %>
-                                        </td>
-                                        <td>
-                                            <%= electionList[i].electionId %>
-                                        </td>
-                                        <td>
-                                            <%= electionList[i].electionName %>
-                                        </td>
-                                        <td>
-                                            <%=(electionList[i].status ? "Completed" : "Running")   %>
-                                        </td>     
-                                    </tr>
-                                <% } %>
+                            <% for(var i=0; i < electionList.length; i++){ %>
+                                <tr  onclick="if(confirm('Are you sure you want to delete this election?')){window.location='/admin/electiondelete/<%= electionList[i].electionId %>';}" style="cursor: pointer;">
+                                    <td>
+                                        <%= (i+1) %>
+                                    </td>
+                                    <td>
+                                        <%= electionList[i].electionId %>
+                                    </td>
+                                    <td>
+                                        <%= electionList[i].electionName %>
+                                    </td>
+                                    <td>
+                                        <%=(electionList[i].status ? "Completed" : "Running")   %>
+                                    </td>     
+                                </tr>
+                            <% } %>
                         </tbody>
+                        
                     </table>
                     <hr>
                 </div>
